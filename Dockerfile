@@ -1,11 +1,11 @@
 FROM trolann/rbimage:latest
 
-ENV DIR_PATH='/rastabot/'
-ENV DB_DIR='/dealcatcher/'
+ENV DIR_PATH='/rastabot-sounds/'
+ENV DB_DIR='/rastabotdb/'
 
-RUN mkdir -p /rastabot
-RUN mkdir -p /dealcatcher
+RUN mkdir -p '/rastabot-sounds/'
+RUN mkdir -p '/rastabotdb/'
 
-COPY . /rastabot
+COPY . /rastabot-sounds/
 
-CMD ["/rastabot/main.py"]
+CMD ["/rastabot-sounds/main.py"]

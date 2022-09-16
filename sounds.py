@@ -8,7 +8,7 @@ from discord import FFmpegPCMAudio, PCMVolumeTransformer
 REQUEST_PREFIX = config_db.request_prefix
 global vc
 global path
-path = config_db.environ_path
+
 
 async def check_dab_timer(channel = None):
 
@@ -102,11 +102,11 @@ async def dab_request(irie_guild, message):
 	print('Connected to {} with latency of {}'.format(voice_channel.name, vc.average_latency))
 
 	try:
-		vc.play(FFmpegPCMAudio('{}dabtime.mp3'.format(config_db.environ_path)))
+		vc.play(FFmpegPCMAudio('{}dabtime.mp3'.format(sounds_db.media_path)))
 		print('Playing dabtime.mp3 with latency of {}'.format(vc.average_latency))
 		vc.source = PCMVolumeTransformer(vc.source, volume=0.35)
 		while vc.is_playing():
-			await asynciosleep(0.5)
+			await asynciosleep(1)
 			continue
 		print('Done playing dabtime.mp3 with latency of {}'.format(vc.average_latency))
 		await vc.disconnect()
