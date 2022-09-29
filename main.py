@@ -33,6 +33,7 @@ async def on_ready():  # When ready
 	# Globally pull the guild to prevent future calls
 	global irie_guild
 	irie_guild = client.get_guild(int(os_environ['IRIE_GUILD_ID']))
+	config_db.client = client
 	print('RastaBot-Sounds has logged in as {0.user}'.format(client))
 
 

@@ -10,3 +10,6 @@ async def process_request(irie_guild, message, member, channel):
 	if message.content.startswith('{}dab'.format(REQUEST_PREFIX)):
 		await dab_request(irie_guild, message)
 		return
+	if message.content.startswith('{}rastajeff'.format(REQUEST_PREFIX)):
+		await dab_request(irie_guild, message, rj_command=True)
+		return

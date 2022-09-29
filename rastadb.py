@@ -4,6 +4,9 @@ from os import environ
 from random import uniform
 from pathlib import Path
 
+from os import listdir
+from os.path import isfile, join
+
 global dev_instance
 global path
 global media_path
@@ -110,6 +113,7 @@ class ConfigDB:
         self.environ_path = path
         self._rastadb = path + 'rastabot.db'
         self.table = 'config'
+        self.client = ''
 
         self.request_prefix = get_value(self._rastadb, self.table, 'request_prefix')
         self.command_prefix = get_value(self._rastadb, self.table, 'command_prefix')
@@ -128,6 +132,18 @@ class SoundsDB:
         self.dab_text_channel_id = int(get_value(self._rastadb, self.table, 'dab_text_channel_id', get_dev = True))
         self.dab_voice_channel_id = int(get_value(self._rastadb, self.table, 'dab_voice_channel_id', get_dev = True))
         self.dab_delay_seconds = int(get_value(self._rastadb, self.table, 'dab_delay_seconds', get_dev = True))
+        self.dab_files = self.get_dab_files()
+        self.dab_files_index = -1
+
+    def get_dab_file(self, rj_command = False):
+        self.dab_files_index = 0 if self.dab_files_index >= len(self.dab_files) else self.dab_files_index + 1
+        return self.dab_files[self.dab_files_index] if not rj_command else self.dab_files[self.dab_files.index('joeydiaz.mp3')]
+
+    def get_dab_files(self):
+        dab_files = [f for f in listdir(self.media_path) if isfile(join(self.media_path, f))]
+        dab_files.remove('.gitignore')
+        print(dab_files)
+        return dab_files
 
     def check_dab_timer(self):
         return int(round(float(get_value(self._rastadb, self.table, 'dab_timer_expires', get_dev = True))))
